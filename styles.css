@@ -1,0 +1,2116 @@
+:root {
+  --bg: #0B0D10;
+  --surface: #12151B;
+  --surface-2: #181C24;
+  --surface-3: #1F2430;
+  --border: #272D3A;
+  --border-strong: #394254;
+  --ink: #F4F6F9;
+  --ink-2: #C8D0DC;
+  --mute: #8D98AA;
+  --silver: #B5C0D0;
+  --team-primary: #BD3039;
+  --team-secondary: #C8D0DC;
+  --gold: #D4AF37;
+  --emerald: #2FB67C;
+  --crimson: #E0484D;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14.5px;
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select {
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+
+/* Top Bar */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(11, 13, 16, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.brand-mark {
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid var(--silver);
+  transform: rotate(45deg);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: var(--surface-2);
+}
+
+.brand-mark-inner {
+  width: 10px;
+  height: 10px;
+  background: var(--team-primary);
+  transition: background 0.3s ease;
+}
+
+.brand-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.brand-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--mute);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--ink);
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--surface-3);
+  border-color: var(--border-strong);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: #0B0D10;
+  border-color: var(--ink);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #DCE2EC;
+  border-color: #DCE2EC;
+}
+
+.btn-accent {
+  background: var(--team-primary);
+  color: #FFFFFF;
+  border-color: var(--team-primary);
+}
+
+.btn-accent:hover:not(:disabled) {
+  filter: brightness(1.12);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink-2);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: var(--border);
+  color: var(--ink);
+}
+
+.pill-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--silver);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--team-primary);
+}
+
+/* Main container */
+.app-shell {
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 24px 20px 56px;
+}
+
+.view { display: none; }
+.view.active { display: block; }
+
+/* ---------------- HOME / MODE SELECT ---------------- */
+.hero-header {
+  max-width: 780px;
+  margin-bottom: 30px;
+}
+
+.hero-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--mute);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.hero-h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+
+.hero-desc {
+  color: var(--ink-2);
+  font-size: 15.5px;
+  max-width: 62ch;
+  margin: 0;
+}
+
+.vault-stats-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 14px 0;
+  margin: 22px 0 28px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.vault-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.vault-stat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.vault-stat-lbl {
+  font-size: 11.5px;
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.mode-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  transition: border-color 0.15s, background 0.15s, transform 0.12s;
+  position: relative;
+}
+
+.mode-card:hover {
+  border-color: var(--silver);
+  background: var(--surface-2);
+  transform: translateY(-1px);
+}
+
+.mode-card.flagship {
+  border-color: var(--silver);
+  background: linear-gradient(180deg, #171B23 0%, #12151B 100%);
+}
+
+.mode-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mode-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.mode-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--surface-3);
+  color: var(--silver);
+  border: 1px solid var(--border);
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mode-tag.flagship-tag {
+  background: var(--ink);
+  color: #0B0D10;
+  border-color: var(--ink);
+}
+
+.mode-desc {
+  color: var(--ink-2);
+  font-size: 13.5px;
+  margin: 0;
+}
+
+.mode-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--mute);
+}
+
+/* Sub-selector for Franchise / Decade mode */
+.mode-config-bar {
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.mode-config-bar.visible { display: flex; }
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+
+.chip.selected {
+  background: var(--ink);
+  color: #0B0D10;
+  border-color: var(--ink);
+}
+
+/* ---------------- DRAFT ROOM ---------------- */
+.draft-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.15fr);
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .draft-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.panel-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Realistic Top-Down Ballpark */
+.ballpark-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10.5;
+  background: #0B0D10;
+  overflow: hidden;
+}
+
+.ballpark-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.92) contrast(1.06);
+  user-select: none;
+  pointer-events: none;
+}
+
+.ballpark-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 52%, transparent 48%, rgba(11, 13, 16, 0.72) 100%);
+  pointer-events: none;
+}
+
+.field-slot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  min-width: 78px;
+  max-width: 124px;
+  padding: 4px 8px 5px;
+  border-radius: 4px;
+  background: rgba(11, 13, 16, 0.80);
+  border: 1px solid rgba(181, 192, 208, 0.24);
+  border-bottom: 2px solid var(--slot-accent, rgba(181, 192, 208, 0.45));
+  backdrop-filter: blur(5px);
+  text-align: center;
+  transition: transform 0.15s, border-color 0.15s, background 0.15s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
+}
+
+.field-slot:hover {
+  transform: translate(-50%, -50%) scale(1.04);
+  border-color: var(--ink);
+  z-index: 5;
+}
+
+.field-slot.filled {
+  border-left: 3px solid var(--slot-accent, var(--silver));
+  background: rgba(17, 21, 28, 0.95);
+}
+
+.field-slot.eligible-pulse {
+  border-color: var(--team-primary);
+  box-shadow: 0 0 0 2px rgba(244, 246, 249, 0.25), 0 6px 18px rgba(0,0,0,0.6);
+}
+
+.slot-pos {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--mute);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.slot-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  margin-top: 1px;
+}
+
+.slot-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: var(--silver);
+  display: block;
+}
+
+.field-slot.empty .slot-name {
+  color: var(--mute);
+  font-weight: 500;
+  font-size: 11px;
+}
+
+/* Dugout & Bullpen Panel (strictly off-field) */
+.dugout-panel {
+  border-top: 1px solid var(--border);
+  background: #0F1218;
+  padding: 14px 16px;
+}
+
+.dugout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.dugout-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--mute);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dugout-slot {
+  width: 100%;
+  text-align: left;
+  padding: 9px 12px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.dugout-slot:hover {
+  border-color: var(--silver);
+  background: var(--surface-3);
+}
+
+.dugout-slot.filled {
+  border-left: 3px solid var(--slot-accent, var(--silver));
+}
+
+.dugout-slot.eligible-pulse {
+  border-color: var(--team-primary);
+}
+
+.dugout-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--silver);
+  min-width: 34px;
+}
+
+.dugout-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dugout-player {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dugout-player.empty {
+  color: var(--mute);
+  font-weight: 400;
+}
+
+.dugout-era {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--mute);
+}
+
+/* Chemistry strip below dugout */
+.chem-strip {
+  border-top: 1px solid var(--border);
+  padding: 12px 16px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.chem-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chem-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(47, 182, 124, 0.12);
+  border: 1px solid rgba(47, 182, 124, 0.35);
+  color: #7BE0B2;
+}
+
+.chem-tag.neutral {
+  background: var(--surface-2);
+  border-color: var(--border);
+  color: var(--mute);
+}
+
+/* ---------------- ROLL BANNER & SCOUTING ROOM ---------------- */
+.roll-banner {
+  padding: 18px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  border-left: 4px solid var(--team-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  transition: border-color 0.3s ease;
+}
+
+.roll-franchise {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.roll-decade {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--silver);
+  margin-top: 4px;
+}
+
+.roll-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scouting-toolbar {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: var(--surface);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.filter-tab {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mute);
+  border: 1px solid transparent;
+}
+
+.filter-tab:hover { color: var(--ink); }
+
+.filter-tab.active {
+  background: var(--surface-3);
+  color: var(--ink);
+  border-color: var(--border-strong);
+}
+
+.search-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12.5px;
+  color: var(--ink);
+  min-width: 170px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--silver);
+}
+
+/* Archival Scouting Dossier List (NOT cards) */
+.dossier-list {
+  max-height: 460px;
+  overflow-y: auto;
+  divide-y: 1px solid var(--border);
+}
+
+.dossier-row {
+  width: 100%;
+  text-align: left;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.25fr);
+  gap: 12px;
+  align-items: center;
+  background: var(--surface);
+  transition: background 0.12s;
+}
+
+@media (max-width: 640px) {
+  .dossier-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+.dossier-row:hover {
+  background: var(--surface-2);
+}
+
+.dossier-row.selected {
+  background: #1B202B;
+  box-shadow: inset 3px 0 0 var(--team-primary);
+}
+
+.dossier-row.disabled-row {
+  opacity: 0.4;
+}
+
+.dossier-name-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dossier-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.pos-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--surface-3);
+  color: var(--silver);
+  border: 1px solid var(--border);
+}
+
+.hof-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: rgba(212, 175, 55, 0.14);
+  color: #E8CA68;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.dossier-tenure {
+  font-size: 12px;
+  color: var(--mute);
+  margin-top: 2px;
+}
+
+.dossier-awards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.award-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: #151922;
+  border: 1px solid var(--border);
+  color: var(--ink-2);
+}
+
+.award-chip.major {
+  border-color: rgba(212, 175, 55, 0.4);
+  color: #E8CA68;
+}
+
+.dossier-stats-col {
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .dossier-stats-col { text-align: left; }
+}
+
+.stat-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.stat-sub {
+  font-size: 11.5px;
+  color: var(--mute);
+  margin-top: 3px;
+}
+
+.blind-mask {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--mute);
+}
+
+/* Selected Dossier Action Bar */
+.dossier-inspector {
+  padding: 16px 18px;
+  background: #0F1218;
+  border-top: 1px solid var(--border-strong);
+}
+
+.inspector-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.inspector-blurb {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-2);
+  margin: 6px 0 12px;
+  line-height: 1.35;
+}
+
+.slot-assign-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Complete Roster CTA Banner */
+.sim-ready-bar {
+  padding: 20px;
+  background: var(--surface-2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ---------------- SEASON SIMULATION & END-OF-SEASON ---------------- */
+.sim-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.record-display {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(54px, 7vw, 84px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+
+.record-tier {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--silver);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.month-cell {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 12px 14px;
+}
+
+.month-cell.active-month {
+  border-color: var(--silver);
+  background: var(--surface-2);
+}
+
+.month-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--mute);
+  text-transform: uppercase;
+}
+
+.month-rec {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  margin-top: 2px;
+}
+
+.month-note {
+  font-size: 11.5px;
+  color: var(--ink-2);
+  margin-top: 2px;
+}
+
+/* Commemorative Black Diamond Team Photo */
+.team-photo-frame {
+  background: linear-gradient(160deg, #161A22 0%, #0D0F14 100%);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.team-photo-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+
+.team-photo-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.team-photo-roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 10px;
+}
+
+.photo-player {
+  background: rgba(11, 13, 16, 0.72);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--p-accent, var(--silver));
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.photo-player-pos {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--mute);
+  text-transform: uppercase;
+}
+
+.photo-player-name {
+  font-weight: 700;
+  font-size: 13.5px;
+  margin-top: 2px;
+}
+
+.photo-player-club {
+  font-size: 11px;
+  color: var(--silver);
+}
+
+/* Recap Grid */
+.recap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.recap-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.recap-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.recap-big {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.series-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+
+.series-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.series-list li:last-child { border-bottom: none; }
+
+.hist-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.hist-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--mute);
+  text-align: left;
+  padding: 0 8px 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.hist-table td {
+  padding: 8px 8px 8px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink-2);
+}
+
+.hist-table tr.user-row td {
+  color: var(--ink);
+  font-weight: 700;
+  background: rgba(244, 246, 249, 0.05);
+}
+
+/* ---------------- MODALS ---------------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 10, 0.78);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 80;
+}
+
+.modal-backdrop.open { display: flex; }
+
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 22px;
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.trophy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.trophy-item {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.trophy-item.unlocked {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.08);
+}
+
+.trophy-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.trophy-item:not(.unlocked) .trophy-name { color: var(--mute); }
+
+.trophy-desc {
+  font-size: 11.5px;
+  color: var(--mute);
+  margin-top: 3px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--surface-3);
+  border: 1px solid var(--silver);
+  color: var(--ink);
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 99;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.field-slot.filled {
+  border-left: 1px solid rgba(181, 192, 208, 0.28);
+  border-bottom: 2.5px solid var(--slot-accent, var(--silver));
+  background: rgba(11, 13, 16, 0.88);
+}
+
+.sort-select {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  color: var(--ink);
+  outline: none;
+}
+
+.sort-select:focus {
+  border-color: var(--silver);
+}
+
+.pool-count-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--silver);
+  display: inline-block;
+  margin-top: 6px;
+}
+
+.import-dropzone {
+  border: 1px dashed var(--border-strong);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--bg);
+  margin-bottom: 14px;
+}
+
+/* Priority 1 & 3: Historical Vault Dashboard & Seed Fallback Banner */
+.seed-fallback-banner {
+  margin: 0 0 22px;
+  padding: 12px 16px;
+  border-radius: 7px;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.seed-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+/* Priority 5: Roads Not Taken */
+.roads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.road-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--r-accent, var(--silver));
+  border-radius: 6px;
+  padding: 13px 14px;
+}
+
+.road-era {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--silver);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.road-drafted-lbl, .road-passed-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.road-drafted-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 2px 0 10px;
+}
+
+.road-passed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.passed-name {
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+/* Live Historical Opportunities / Retired Chapters Log */
+.retired-strip {
+  border-top: 1px solid var(--border);
+  padding: 12px 16px;
+  background: #0F1218;
+}
+
+.retired-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.retired-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12.5px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--ret-accent, var(--silver));
+}
+
+.retired-era {
+  color: var(--ink-2);
+}
+
+.retired-arrow {
+  color: var(--mute);
+  margin: 0 5px;
+}
+
+.retired-player {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.retired-slot {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--silver);
+  white-space: nowrap;
+}
+
+/* 1890s-2020s Decade Coverage Strip */
+.decade-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -14px 0 22px;
+}
+
+.dec-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--mute);
+}
+
+.dec-pill.covered {
+  background: rgba(47, 182, 124, 0.12);
+  border-color: rgba(47, 182, 124, 0.4);
+  color: #7BE0B2;
+}
+
+/* Scouting Room Evolution: Era Context & Historical Gem storytelling tags */
+.era-narrative {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 16.5px;
+  line-height: 1.38;
+  color: var(--ink-2);
+  margin: 8px 0 0;
+  max-width: 62ch;
+}
+
+.toggle-pill {
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.toggle-pill.active {
+  background: rgba(212, 175, 55, 0.14);
+  border-color: rgba(212, 175, 55, 0.45);
+  color: #E8CA68;
+}
+
+.gem-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  background: #151922;
+  color: var(--silver);
+  letter-spacing: 0.02em;
+}
+
+.gem-tag.gem-hof { border-color: rgba(212, 175, 55, 0.45); color: #E8CA68; background: rgba(212, 175, 55, 0.10); }
+.gem-tag.gem-ws { border-color: rgba(181, 192, 208, 0.45); color: var(--ink); }
+.gem-tag.gem-legend { border-color: rgba(47, 182, 124, 0.4); color: #7BE0B2; }
+
+/* ============================================================================
+   NARRATIVE-FIRST NAMED SYNERGIES (Stories Strip, Dossier Badges, Milestone Popup)
+   ============================================================================ */
+.stories-strip {
+  margin-top: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+.stories-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.story-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  color: var(--silver);
+}
+.story-chip.potential {
+  border-style: dashed;
+  color: var(--mute);
+}
+.story-chip.completed.tier-legendary {
+  background: rgba(229, 169, 59, 0.16);
+  border-color: rgba(229, 169, 59, 0.6);
+  color: #F8D47C;
+  font-weight: 600;
+}
+.story-chip.completed.tier-franchise {
+  background: rgba(181, 192, 208, 0.14);
+  border-color: rgba(181, 192, 208, 0.45);
+  color: #E2E8F0;
+  font-weight: 600;
+}
+.story-chip.completed.tier-baseball {
+  background: rgba(82, 183, 136, 0.14);
+  border-color: rgba(82, 183, 136, 0.45);
+  color: #8BE0B8;
+  font-weight: 600;
+}
+.dossier-row.story-ready {
+  border-color: rgba(229, 169, 59, 0.65) !important;
+  background: linear-gradient(90deg, rgba(229, 169, 59, 0.10), rgba(18, 21, 27, 0.92)) !important;
+}
+.story-avail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(229, 169, 59, 0.22);
+  border: 1px solid rgba(229, 169, 59, 0.65);
+  color: #F8D47C;
+}
+.inspector-story-callout {
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(229, 169, 59, 0.55);
+  background: rgba(229, 169, 59, 0.09);
+}
+.inspector-story-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #F8D47C;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+}
+.inspector-story-text {
+  font-size: 12.5px;
+  color: var(--ink);
+  margin-top: 4px;
+  line-height: 1.45;
+}
+.inspector-story-sacrifice {
+  font-size: 11.5px;
+  color: #F5B7B1;
+  margin-top: 5px;
+}
+.story-milestone-banner {
+  position: fixed;
+  top: 22px;
+  left: 50%;
+  transform: translate(-50%, -18px);
+  width: min(560px, calc(100vw - 32px));
+  background: linear-gradient(135deg, #171B24 0%, #0E1015 100%);
+  border: 1px solid rgba(229, 169, 59, 0.72);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.75);
+  border-radius: 12px;
+  padding: 16px 20px;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+.story-milestone-banner.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+}
+.milestone-tier {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #F8D47C;
+}
+.milestone-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-top: 2px;
+}
+.milestone-story {
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-top: 6px;
+  line-height: 1.48;
+}
+.milestone-sacrifice {
+  font-size: 12px;
+  color: #F5B7B1;
+  margin-top: 7px;
+  font-weight: 500;
+}
+.milestone-bonus {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #8BE0B8;
+  margin-top: 8px;
+}
+.road-story-badge {
+  margin-top: 6px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: rgba(229, 169, 59, 0.12);
+  border: 1px solid rgba(229, 169, 59, 0.45);
+  font-size: 11.5px;
+  color: #F8D47C;
+  line-height: 1.4;
+}
+.dynasty-stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+.dynasty-story-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 11px;
+}
+.dynasty-story-card.tier-legendary { border-color: rgba(229, 169, 59, 0.55); }
+.dynasty-story-card.tier-franchise { border-color: rgba(181, 192, 208, 0.4); }
+.dynasty-story-card.tier-baseball { border-color: rgba(82, 183, 136, 0.4); }
+
+/* ============================================================================
+   BLACK DIAMOND PHASE 1 — LUXURY VAULT VISUAL PASS
+   Obsidian Black (#080A0D) · Brushed Chrome (#C7D0DE) · Championship Gold (#D9A441) · Stitch Crimson (#D62828)
+   Zero layout redesign · Zero heavy particles · Crisp, instant micro-transitions
+   ============================================================================ */
+:root {
+  --bg: #080A0D;
+  --surface: #101319;
+  --surface-2: #151922;
+  --surface-3: #1C222E;
+  --border: #252C3A;
+  --border-chrome: rgba(199, 208, 222, 0.24);
+  --ink: #F4F6F9;
+  --ink-2: #C2CBD8;
+  --silver: #C7D0DE;
+  --mute: #7E8A9E;
+  --gold: #D9A441;
+  --gold-soft: rgba(217, 164, 65, 0.14);
+  --crimson: #D62828;
+  --crimson-soft: rgba(214, 40, 40, 0.14);
+  --emerald: #3E9E72;
+}
+
+body {
+  background: radial-gradient(circle at 50% -10%, #141923 0%, var(--bg) 52%);
+}
+
+/* Topbar Chrome & Emblem */
+.topbar {
+  background: rgba(8, 10, 13, 0.92);
+  border-bottom: 1px solid var(--border-chrome);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04);
+}
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(199, 208, 222, 0.38);
+  background: #080A0D;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.65);
+}
+.brand-mark-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.brand-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #FFFFFF 0%, #B8C2D1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.brand-sub {
+  letter-spacing: 0.14em;
+  color: var(--mute);
+}
+
+/* Home Hero with Black Diamond Emblem */
+.hero-with-emblem {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 24px 28px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(21, 25, 34, 0.92) 0%, rgba(10, 12, 16, 0.96) 100%);
+  border: 1px solid var(--border-chrome);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.hero-emblem-wrap {
+  flex: 0 0 148px;
+  width: 148px;
+  height: 148px;
+  border-radius: 26px;
+  overflow: hidden;
+  border: 1px solid rgba(199, 208, 222, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.72), 0 0 24px rgba(214, 40, 40, 0.12);
+  background: #080A0D;
+}
+.hero-emblem-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-copy-col {
+  flex: 1;
+  min-width: 0;
+}
+.hero-kicker {
+  color: var(--gold);
+  letter-spacing: 0.14em;
+}
+.hero-h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.015em;
+  line-height: 0.98;
+  background: linear-gradient(180deg, #FFFFFF 15%, #C7D0DE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@media (max-width: 720px) {
+  .hero-with-emblem { flex-direction: column; text-align: center; padding: 20px; }
+  .hero-emblem-wrap { width: 118px; height: 118px; flex: 0 0 118px; }
+}
+
+/* Historical Vault Stats & Mode Cards */
+.vault-stats-bar {
+  background: linear-gradient(180deg, #131720 0%, #0E1117 100%);
+  border: 1px solid var(--border-chrome);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.vault-stat-val {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.mode-card {
+  background: linear-gradient(180deg, #151A24 0%, #101319 100%);
+  border: 1px solid var(--border);
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+.mode-card:hover {
+  border-color: rgba(199, 208, 222, 0.45);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+}
+.mode-card.flagship {
+  border-color: rgba(217, 164, 65, 0.52);
+  box-shadow: inset 0 1px 0 rgba(217, 164, 65, 0.22);
+}
+
+/* Franchise-Era Reveal Styling (Fast 320ms Chrome Sweep) */
+@keyframes eraChromeReveal {
+  0%   { opacity: 0.65; transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.38); }
+  100% { opacity: 1;    transform: translateY(0);    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
+}
+.roll-header {
+  background: linear-gradient(135deg, #161B25 0%, #0E1117 100%);
+  border: 1px solid var(--border-chrome);
+  border-top: 2px solid var(--team-accent, var(--gold));
+}
+.roll-header.era-reveal {
+  animation: eraChromeReveal 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+#rollFranchiseName {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Collectible Archival Dossier Tiers */
+.dossier-row {
+  background: linear-gradient(90deg, #141821 0%, #101319 100%);
+  border: 1px solid var(--border);
+  transition: border-color 0.14s ease, background 0.14s ease;
+}
+.dossier-row:hover {
+  border-color: rgba(199, 208, 222, 0.42);
+  background: linear-gradient(90deg, #1B212E 0%, #131720 100%);
+}
+.dossier-row.hof-tier {
+  border-left: 3px solid var(--gold);
+  background: linear-gradient(90deg, rgba(217, 164, 65, 0.07) 0%, #12151D 38%);
+}
+.dossier-row.selected {
+  border-color: var(--silver) !important;
+  box-shadow: 0 0 0 1px rgba(199, 208, 222, 0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+/* Roads Not Taken — Sealed Vault Entries & Lost Timelines */
+.retired-strip {
+  background: linear-gradient(180deg, #12151D 0%, #0C0E13 100%);
+  border: 1px solid rgba(214, 40, 40, 0.28);
+}
+.road-card {
+  position: relative;
+  background: linear-gradient(160deg, #141822 0%, #0B0D12 100%);
+  border: 1px solid var(--border-chrome);
+  border-top: 2px solid var(--r-accent, var(--silver));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.road-card::after {
+  content: "SEALED";
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(214, 40, 40, 0.85);
+  border: 1px solid rgba(214, 40, 40, 0.45);
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgba(214, 40, 40, 0.08);
+}
+.road-era {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--silver);
+  padding-right: 58px;
+}
+.road-passed-lbl {
+  color: rgba(214, 40, 40, 0.82);
+  letter-spacing: 0.08em;
+}
+.passed-name {
+  opacity: 0.82;
+}
+
+/* Synergy Presentation — Black Diamond Chrome Title Card */
+.story-milestone-banner {
+  background: linear-gradient(165deg, #171C26 0%, #090B0F 100%);
+  border: 1px solid rgba(199, 208, 222, 0.55);
+  border-top: 2px solid var(--gold);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.88), 0 0 32px rgba(217, 164, 65, 0.16);
+}
+.milestone-name {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 28px;
+  letter-spacing: 0.01em;
+  background: linear-gradient(180deg, #FFFFFF 0%, #D4DCE8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.milestone-sacrifice {
+  color: #F28B82;
+  border-left: 2px solid var(--crimson);
+  padding-left: 9px;
+}
+
+/* Dynasty Hub & Vault Modals */
+.modal-box {
+  background: linear-gradient(180deg, #131720 0%, #0B0D12 100%);
+  border: 1px solid var(--border-chrome);
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.85);
+}
+.trophy-card.unlocked {
+  border-color: rgba(217, 164, 65, 0.58);
+  background: linear-gradient(145deg, rgba(217, 164, 65, 0.10) 0%, #12151D 100%);
+}
+.dynasty-story-card {
+  background: linear-gradient(155deg, #151A24 0%, #0D1016 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* ============================================================================
+   BLACK DIAMOND — TOP 7 HIGH-IMPACT VISUAL REFINEMENTS (Zero Layout Changes)
+   1. De-emphasized telemetry · 2. Engraved dossier metadata · 3. Sharpened geometry
+   4. Directional chrome rim lighting · 5. Strict gold/crimson discipline
+   6. Story typography (Instrument Serif) · 7. Roads Not Taken Vault Case Files
+   ============================================================================ */
+
+/* 1. De-emphasizing database telemetry */
+.vault-stats-bar {
+  background: rgba(10, 12, 17, 0.72) !important;
+  border: 1px solid rgba(199, 208, 222, 0.14) !important;
+  border-radius: 3px !important;
+  padding: 10px 18px !important;
+  margin-top: 16px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+.vault-stat-val {
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  color: var(--silver) !important;
+}
+.vault-stat-lbl {
+  font-size: 10px !important;
+  letter-spacing: 0.1em !important;
+  color: var(--mute) !important;
+}
+
+/* 2. Removing badge clutter (engraved middot metadata line) */
+.dossier-awards {
+  display: block !important;
+  margin-top: 4px !important;
+}
+.dossier-awards-line {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: var(--mute);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.award-major-txt {
+  color: var(--gold);
+  font-weight: 500;
+}
+.award-dot {
+  color: rgba(199, 208, 222, 0.35);
+}
+.award-muted-txt {
+  color: var(--mute);
+  font-style: italic;
+}
+.pos-badge {
+  border-radius: 2px !important;
+  background: rgba(199, 208, 222, 0.08) !important;
+  border: 1px solid rgba(199, 208, 222, 0.22) !important;
+  color: var(--silver) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.06em !important;
+}
+.gem-tag {
+  border-radius: 2px !important;
+  background: transparent !important;
+  border: 1px solid rgba(199, 208, 222, 0.2) !important;
+  color: var(--silver) !important;
+  font-size: 9.5px !important;
+}
+.gem-tag.hof, .gem-tag.legend {
+  border-color: rgba(217, 164, 65, 0.55) !important;
+  color: var(--gold) !important;
+  background: rgba(217, 164, 65, 0.08) !important;
+}
+
+/* 3. Sharpening geometry (precision 3px-4px machined corners) */
+.hero-with-emblem,
+.mode-card,
+.panel,
+.field-panel,
+.dugout-panel,
+.chem-strip,
+.stories-strip,
+.retired-strip,
+.roll-header,
+.dossier-row,
+.inspector-box,
+.road-card,
+.modal-box,
+.trophy-card,
+.dynasty-story-card,
+.btn {
+  border-radius: 4px !important;
+}
+.story-chip,
+.chem-tag {
+  border-radius: 3px !important;
+}
+
+/* 4. Directional chrome rim lighting & deep obsidian void around ballpark */
+body {
+  background: radial-gradient(circle at 50% -12%, #131822 0%, #05070A 58%) !important;
+}
+.hero-with-emblem,
+.panel,
+.field-panel,
+.roll-header,
+.modal-box {
+  border-color: rgba(199, 208, 222, 0.22) !important;
+  box-shadow: inset 0 1px 0 rgba(235, 242, 255, 0.16), 0 18px 44px rgba(0, 0, 0, 0.72) !important;
+}
+.field-panel {
+  background: #06080B !important;
+}
+.mode-card,
+.dugout-panel,
+.inspector-box {
+  box-shadow: inset 0 1px 0 rgba(220, 228, 242, 0.10), 0 8px 24px rgba(0, 0, 0, 0.55) !important;
+}
+
+/* 5. Gold / Crimson discipline */
+.dossier-row.hof-tier {
+  border-left: 2px solid var(--gold) !important;
+  background: linear-gradient(90deg, rgba(217, 164, 65, 0.09) 0%, #10131A 42%) !important;
+  box-shadow: inset 0 1px 0 rgba(217, 164, 65, 0.16) !important;
+}
+.dossier-row.story-ready {
+  border-left: 2px solid var(--gold) !important;
+  border-color: rgba(217, 164, 65, 0.72) !important;
+  background: linear-gradient(90deg, rgba(217, 164, 65, 0.14) 0%, #10131A 55%) !important;
+}
+.story-avail-badge {
+  border-radius: 2px !important;
+  background: rgba(217, 164, 65, 0.18) !important;
+  border: 1px solid rgba(217, 164, 65, 0.75) !important;
+  color: #F8D47C !important;
+}
+.btn-primary {
+  background: linear-gradient(180deg, #E7ECF4 0%, #BCC6D6 100%) !important;
+  color: #080A0D !important;
+  border: 1px solid #FFFFFF !important;
+  font-weight: 700 !important;
+}
+.btn-accent {
+  background: linear-gradient(180deg, #E5B452 0%, #C28C2B 100%) !important;
+  color: #080A0D !important;
+  border: 1px solid #F7D488 !important;
+  font-weight: 700 !important;
+}
+
+/* 6. Story typography (Instrument Serif editorial voice) */
+.inspector-blurb {
+  font-family: 'Instrument Serif', Georgia, serif !important;
+  font-style: italic !important;
+  font-size: 18px !important;
+  line-height: 1.42 !important;
+  color: #EAEFF7 !important;
+  margin: 10px 0 12px !important;
+  padding-left: 12px !important;
+  border-left: 2px solid rgba(217, 164, 65, 0.55) !important;
+}
+.era-narrative,
+.milestone-story,
+.inspector-story-text {
+  font-family: 'Instrument Serif', Georgia, serif !important;
+  font-size: 16px !important;
+  line-height: 1.45 !important;
+  color: #DCE3EE !important;
+}
+
+/* 7. Roads Not Taken visual elevation */
+.road-card {
+  background: linear-gradient(165deg, #11151E 0%, #07090D 100%) !important;
+  border: 1px solid rgba(199, 208, 222, 0.22) !important;
+  border-top: 2px solid var(--r-accent, var(--silver)) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 12px 28px rgba(0, 0, 0, 0.68) !important;
+  padding: 15px 16px !important;
+}
+.road-card::after {
+  content: "SEALED VAULT" !important;
+  border-radius: 2px !important;
+  color: #F28B82 !important;
+  border-color: rgba(214, 40, 40, 0.58) !important;
+  background: rgba(214, 40, 40, 0.12) !important;
+}
+.road-drafted-name {
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  color: #FFFFFF !important;
+}
+.road-passed-lbl {
+  margin-top: 10px !important;
+  padding-top: 8px !important;
+  border-top: 1px solid rgba(214, 40, 40, 0.22) !important;
+  color: rgba(242, 139, 130, 0.85) !important;
+}
+.passed-name {
+  color: rgba(199, 208, 222, 0.62) !important;
+  font-size: 12px !important;
+}
+
+/* ============================================================================
+   MILESTONE #3 — ROADS NOT TAKEN SACRIFICE EVOLUTION & PERMANENT HALL
+   ============================================================================ */
+.sacrifice-spotlight {
+  margin-bottom: 14px;
+  padding: 14px 18px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(214, 40, 40, 0.12) 0%, #0D1017 55%, rgba(217, 164, 65, 0.08) 100%);
+  border: 1px solid rgba(214, 40, 40, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+.sac-tier-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+  margin-top: 6px;
+}
+.sac-impossible {
+  background: rgba(214, 40, 40, 0.18);
+  border: 1px solid rgba(214, 40, 40, 0.72);
+  color: #F8A5A0;
+}
+.sac-legendary {
+  background: rgba(217, 164, 65, 0.16);
+  border: 1px solid rgba(217, 164, 65, 0.65);
+  color: #F8D47C;
+}
+.sac-historic {
+  background: rgba(199, 208, 222, 0.12);
+  border: 1px solid rgba(199, 208, 222, 0.38);
+  color: #D8E0EC;
+}
+.sac-minor {
+  background: rgba(122, 134, 154, 0.10);
+  border: 1px solid rgba(122, 134, 154, 0.30);
+  color: var(--mute);
+}
+.dynasty-sacrifices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 8px;
+}
+.dynasty-sac-card {
+  background: linear-gradient(160deg, #131722 0%, #090B10 100%);
+  border: 1px solid rgba(199, 208, 222, 0.18);
+  border-radius: 4px;
+  padding: 10px 12px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.dynasty-sac-card.sac-impossible {
+  border-left: 2px solid var(--crimson);
+  border-color: rgba(214, 40, 40, 0.48);
+}
+.dynasty-sac-card.sac-legendary {
+  border-left: 2px solid var(--gold);
+  border-color: rgba(217, 164, 65, 0.42);
+}
