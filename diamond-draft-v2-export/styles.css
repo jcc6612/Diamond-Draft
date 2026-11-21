@@ -1,0 +1,1417 @@
+:root {
+  --bg: #0B0D10;
+  --surface: #12151B;
+  --surface-2: #181C24;
+  --surface-3: #1F2430;
+  --border: #272D3A;
+  --border-strong: #394254;
+  --ink: #F4F6F9;
+  --ink-2: #C8D0DC;
+  --mute: #8D98AA;
+  --silver: #B5C0D0;
+  --team-primary: #BD3039;
+  --team-secondary: #C8D0DC;
+  --gold: #D4AF37;
+  --emerald: #2FB67C;
+  --crimson: #E0484D;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14.5px;
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select {
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
+
+/* Top Bar */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(11, 13, 16, 0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.brand-mark {
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid var(--silver);
+  transform: rotate(45deg);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: var(--surface-2);
+}
+
+.brand-mark-inner {
+  width: 10px;
+  height: 10px;
+  background: var(--team-primary);
+  transition: background 0.3s ease;
+}
+
+.brand-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.brand-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--mute);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--ink);
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--surface-3);
+  border-color: var(--border-strong);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: #0B0D10;
+  border-color: var(--ink);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #DCE2EC;
+  border-color: #DCE2EC;
+}
+
+.btn-accent {
+  background: var(--team-primary);
+  color: #FFFFFF;
+  border-color: var(--team-primary);
+}
+
+.btn-accent:hover:not(:disabled) {
+  filter: brightness(1.12);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink-2);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface-2);
+  border-color: var(--border);
+  color: var(--ink);
+}
+
+.pill-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--silver);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--team-primary);
+}
+
+/* Main container */
+.app-shell {
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 24px 20px 56px;
+}
+
+.view { display: none; }
+.view.active { display: block; }
+
+/* ---------------- HOME / MODE SELECT ---------------- */
+.hero-header {
+  max-width: 780px;
+  margin-bottom: 30px;
+}
+
+.hero-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--mute);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.hero-h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+}
+
+.hero-desc {
+  color: var(--ink-2);
+  font-size: 15.5px;
+  max-width: 62ch;
+  margin: 0;
+}
+
+.vault-stats-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 14px 0;
+  margin: 22px 0 28px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.vault-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.vault-stat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.vault-stat-lbl {
+  font-size: 11.5px;
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.mode-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  transition: border-color 0.15s, background 0.15s, transform 0.12s;
+  position: relative;
+}
+
+.mode-card:hover {
+  border-color: var(--silver);
+  background: var(--surface-2);
+  transform: translateY(-1px);
+}
+
+.mode-card.flagship {
+  border-color: var(--silver);
+  background: linear-gradient(180deg, #171B23 0%, #12151B 100%);
+}
+
+.mode-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mode-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.mode-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--surface-3);
+  color: var(--silver);
+  border: 1px solid var(--border);
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mode-tag.flagship-tag {
+  background: var(--ink);
+  color: #0B0D10;
+  border-color: var(--ink);
+}
+
+.mode-desc {
+  color: var(--ink-2);
+  font-size: 13.5px;
+  margin: 0;
+}
+
+.mode-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--mute);
+}
+
+/* Sub-selector for Franchise / Decade mode */
+.mode-config-bar {
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.mode-config-bar.visible { display: flex; }
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--ink-2);
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: all 0.15s;
+}
+
+.chip.selected {
+  background: var(--ink);
+  color: #0B0D10;
+  border-color: var(--ink);
+}
+
+/* ---------------- DRAFT ROOM ---------------- */
+.draft-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.15fr);
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .draft-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.panel-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Realistic Top-Down Ballpark */
+.ballpark-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10.5;
+  background: #0B0D10;
+  overflow: hidden;
+}
+
+.ballpark-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.92) contrast(1.06);
+  user-select: none;
+  pointer-events: none;
+}
+
+.ballpark-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 52%, transparent 48%, rgba(11, 13, 16, 0.72) 100%);
+  pointer-events: none;
+}
+
+.field-slot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  min-width: 78px;
+  max-width: 124px;
+  padding: 4px 8px 5px;
+  border-radius: 4px;
+  background: rgba(11, 13, 16, 0.80);
+  border: 1px solid rgba(181, 192, 208, 0.24);
+  border-bottom: 2px solid var(--slot-accent, rgba(181, 192, 208, 0.45));
+  backdrop-filter: blur(5px);
+  text-align: center;
+  transition: transform 0.15s, border-color 0.15s, background 0.15s;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.65);
+}
+
+.field-slot:hover {
+  transform: translate(-50%, -50%) scale(1.04);
+  border-color: var(--ink);
+  z-index: 5;
+}
+
+.field-slot.filled {
+  border-left: 3px solid var(--slot-accent, var(--silver));
+  background: rgba(17, 21, 28, 0.95);
+}
+
+.field-slot.eligible-pulse {
+  border-color: var(--team-primary);
+  box-shadow: 0 0 0 2px rgba(244, 246, 249, 0.25), 0 6px 18px rgba(0,0,0,0.6);
+}
+
+.slot-pos {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--mute);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+}
+
+.slot-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  margin-top: 1px;
+}
+
+.slot-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  color: var(--silver);
+  display: block;
+}
+
+.field-slot.empty .slot-name {
+  color: var(--mute);
+  font-weight: 500;
+  font-size: 11px;
+}
+
+/* Dugout & Bullpen Panel (strictly off-field) */
+.dugout-panel {
+  border-top: 1px solid var(--border);
+  background: #0F1218;
+  padding: 14px 16px;
+}
+
+.dugout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.dugout-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--mute);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dugout-slot {
+  width: 100%;
+  text-align: left;
+  padding: 9px 12px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.dugout-slot:hover {
+  border-color: var(--silver);
+  background: var(--surface-3);
+}
+
+.dugout-slot.filled {
+  border-left: 3px solid var(--slot-accent, var(--silver));
+}
+
+.dugout-slot.eligible-pulse {
+  border-color: var(--team-primary);
+}
+
+.dugout-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--silver);
+  min-width: 34px;
+}
+
+.dugout-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dugout-player {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dugout-player.empty {
+  color: var(--mute);
+  font-weight: 400;
+}
+
+.dugout-era {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--mute);
+}
+
+/* Chemistry strip below dugout */
+.chem-strip {
+  border-top: 1px solid var(--border);
+  padding: 12px 16px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.chem-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chem-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(47, 182, 124, 0.12);
+  border: 1px solid rgba(47, 182, 124, 0.35);
+  color: #7BE0B2;
+}
+
+.chem-tag.neutral {
+  background: var(--surface-2);
+  border-color: var(--border);
+  color: var(--mute);
+}
+
+/* ---------------- ROLL BANNER & SCOUTING ROOM ---------------- */
+.roll-banner {
+  padding: 18px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  border-left: 4px solid var(--team-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  transition: border-color 0.3s ease;
+}
+
+.roll-franchise {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.roll-decade {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--silver);
+  margin-top: 4px;
+}
+
+.roll-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scouting-toolbar {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: var(--surface);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.filter-tab {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mute);
+  border: 1px solid transparent;
+}
+
+.filter-tab:hover { color: var(--ink); }
+
+.filter-tab.active {
+  background: var(--surface-3);
+  color: var(--ink);
+  border-color: var(--border-strong);
+}
+
+.search-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12.5px;
+  color: var(--ink);
+  min-width: 170px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: var(--silver);
+}
+
+/* Archival Scouting Dossier List (NOT cards) */
+.dossier-list {
+  max-height: 460px;
+  overflow-y: auto;
+  divide-y: 1px solid var(--border);
+}
+
+.dossier-row {
+  width: 100%;
+  text-align: left;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.25fr);
+  gap: 12px;
+  align-items: center;
+  background: var(--surface);
+  transition: background 0.12s;
+}
+
+@media (max-width: 640px) {
+  .dossier-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+.dossier-row:hover {
+  background: var(--surface-2);
+}
+
+.dossier-row.selected {
+  background: #1B202B;
+  box-shadow: inset 3px 0 0 var(--team-primary);
+}
+
+.dossier-row.disabled-row {
+  opacity: 0.4;
+}
+
+.dossier-name-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dossier-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.pos-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--surface-3);
+  color: var(--silver);
+  border: 1px solid var(--border);
+}
+
+.hof-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: rgba(212, 175, 55, 0.14);
+  color: #E8CA68;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.dossier-tenure {
+  font-size: 12px;
+  color: var(--mute);
+  margin-top: 2px;
+}
+
+.dossier-awards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.award-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: #151922;
+  border: 1px solid var(--border);
+  color: var(--ink-2);
+}
+
+.award-chip.major {
+  border-color: rgba(212, 175, 55, 0.4);
+  color: #E8CA68;
+}
+
+.dossier-stats-col {
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .dossier-stats-col { text-align: left; }
+}
+
+.stat-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.stat-sub {
+  font-size: 11.5px;
+  color: var(--mute);
+  margin-top: 3px;
+}
+
+.blind-mask {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--mute);
+}
+
+/* Selected Dossier Action Bar */
+.dossier-inspector {
+  padding: 16px 18px;
+  background: #0F1218;
+  border-top: 1px solid var(--border-strong);
+}
+
+.inspector-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.inspector-blurb {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-2);
+  margin: 6px 0 12px;
+  line-height: 1.35;
+}
+
+.slot-assign-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Complete Roster CTA Banner */
+.sim-ready-bar {
+  padding: 20px;
+  background: var(--surface-2);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ---------------- SEASON SIMULATION & END-OF-SEASON ---------------- */
+.sim-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.record-display {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(54px, 7vw, 84px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+
+.record-tier {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--silver);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.month-cell {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 12px 14px;
+}
+
+.month-cell.active-month {
+  border-color: var(--silver);
+  background: var(--surface-2);
+}
+
+.month-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--mute);
+  text-transform: uppercase;
+}
+
+.month-rec {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  margin-top: 2px;
+}
+
+.month-note {
+  font-size: 11.5px;
+  color: var(--ink-2);
+  margin-top: 2px;
+}
+
+/* Commemorative Black Diamond Team Photo */
+.team-photo-frame {
+  background: linear-gradient(160deg, #161A22 0%, #0D0F14 100%);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.team-photo-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+
+.team-photo-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.team-photo-roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 10px;
+}
+
+.photo-player {
+  background: rgba(11, 13, 16, 0.72);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--p-accent, var(--silver));
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.photo-player-pos {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--mute);
+  text-transform: uppercase;
+}
+
+.photo-player-name {
+  font-weight: 700;
+  font-size: 13.5px;
+  margin-top: 2px;
+}
+
+.photo-player-club {
+  font-size: 11px;
+  color: var(--silver);
+}
+
+/* Recap Grid */
+.recap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.recap-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.recap-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.recap-big {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.series-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+
+.series-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.series-list li:last-child { border-bottom: none; }
+
+.hist-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.hist-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--mute);
+  text-align: left;
+  padding: 0 8px 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.hist-table td {
+  padding: 8px 8px 8px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink-2);
+}
+
+.hist-table tr.user-row td {
+  color: var(--ink);
+  font-weight: 700;
+  background: rgba(244, 246, 249, 0.05);
+}
+
+/* ---------------- MODALS ---------------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 10, 0.78);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 80;
+}
+
+.modal-backdrop.open { display: flex; }
+
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 22px;
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.trophy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.trophy-item {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.trophy-item.unlocked {
+  border-color: rgba(212, 175, 55, 0.5);
+  background: rgba(212, 175, 55, 0.08);
+}
+
+.trophy-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.trophy-item:not(.unlocked) .trophy-name { color: var(--mute); }
+
+.trophy-desc {
+  font-size: 11.5px;
+  color: var(--mute);
+  margin-top: 3px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--surface-3);
+  border: 1px solid var(--silver);
+  color: var(--ink);
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 99;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.field-slot.filled {
+  border-left: 1px solid rgba(181, 192, 208, 0.28);
+  border-bottom: 2.5px solid var(--slot-accent, var(--silver));
+  background: rgba(11, 13, 16, 0.88);
+}
+
+.sort-select {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  color: var(--ink);
+  outline: none;
+}
+
+.sort-select:focus {
+  border-color: var(--silver);
+}
+
+.pool-count-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--silver);
+  display: inline-block;
+  margin-top: 6px;
+}
+
+.import-dropzone {
+  border: 1px dashed var(--border-strong);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--bg);
+  margin-bottom: 14px;
+}
+
+/* Priority 1 & 3: Historical Vault Dashboard & Seed Fallback Banner */
+.seed-fallback-banner {
+  margin: 0 0 22px;
+  padding: 12px 16px;
+  border-radius: 7px;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.seed-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+/* Priority 5: Roads Not Taken */
+.roads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.road-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--r-accent, var(--silver));
+  border-radius: 6px;
+  padding: 13px 14px;
+}
+
+.road-era {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--silver);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.road-drafted-lbl, .road-passed-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.road-drafted-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 2px 0 10px;
+}
+
+.road-passed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.passed-name {
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+/* Live Historical Opportunities / Retired Chapters Log */
+.retired-strip {
+  border-top: 1px solid var(--border);
+  padding: 12px 16px;
+  background: #0F1218;
+}
+
+.retired-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.retired-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12.5px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--ret-accent, var(--silver));
+}
+
+.retired-era {
+  color: var(--ink-2);
+}
+
+.retired-arrow {
+  color: var(--mute);
+  margin: 0 5px;
+}
+
+.retired-player {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.retired-slot {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: var(--silver);
+  white-space: nowrap;
+}
+
+/* 1890s-2020s Decade Coverage Strip */
+.decade-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -14px 0 22px;
+}
+
+.dec-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--mute);
+}
+
+.dec-pill.covered {
+  background: rgba(47, 182, 124, 0.12);
+  border-color: rgba(47, 182, 124, 0.4);
+  color: #7BE0B2;
+}
+
+/* Scouting Room Evolution: Era Context & Historical Gem storytelling tags */
+.era-narrative {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 16.5px;
+  line-height: 1.38;
+  color: var(--ink-2);
+  margin: 8px 0 0;
+  max-width: 62ch;
+}
+
+.toggle-pill {
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.toggle-pill.active {
+  background: rgba(212, 175, 55, 0.14);
+  border-color: rgba(212, 175, 55, 0.45);
+  color: #E8CA68;
+}
+
+.gem-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  background: #151922;
+  color: var(--silver);
+  letter-spacing: 0.02em;
+}
+
+.gem-tag.gem-hof { border-color: rgba(212, 175, 55, 0.45); color: #E8CA68; background: rgba(212, 175, 55, 0.10); }
+.gem-tag.gem-ws { border-color: rgba(181, 192, 208, 0.45); color: var(--ink); }
+.gem-tag.gem-legend { border-color: rgba(47, 182, 124, 0.4); color: #7BE0B2; }

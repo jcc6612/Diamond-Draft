@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Draft: The 162–0 Challenge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark"><div class="brand-mark-inner"></div></div>
+    <div>
+      <div class="brand-title">Diamond Draft</div>
+      <div class="brand-sub">The 162–0 Challenge</div>
+    </div>
+  </div>
+  <div class="nav-actions">
+    <span id="runStatusPill" class="pill-status" style="display:none;">
+      <span class="pill-dot"></span>
+      <span id="runStatusText">Quick Draft · Pick 1/7</span>
+    </span>
+    <button id="btnDynasty" class="btn">Dynasty Vault</button>
+    <button id="btnImport" class="btn">Import Vault</button>
+    <button id="btnSound" class="btn btn-ghost" title="Toggle Audio">Sound: On</button>
+    <button id="btnNewRun" class="btn btn-primary">New Run</button>
+  </div>
+</header>
+
+<main class="app-shell">
+
+  <!-- VIEW 1: MODE SELECT -->
+  <section id="viewHome" class="view active">
+    <div class="hero-header">
+      <div class="hero-kicker">Black Diamond Historical Vault · Zero Synthetic Players · Zero Visible OVR</div>
+      <h1 class="hero-h1">Draft Real Baseball History.<br>Chase 162–0.</h1>
+      <p class="hero-desc">Roll a franchise and a decade. Explore deep archival scouting pools of real major leaguers from that exact era. Balance peak dominance, longevity, awards, positional scarcity, and clubhouse chemistry—then test your roster against 162 games of baseball randomness.</p>
+    </div>
+
+    <div class="vault-stats-bar">
+      <div class="vault-stat">
+        <span id="statPlayers" class="vault-stat-val">—</span>
+        <span class="vault-stat-lbl">Players Loaded</span>
+      </div>
+      <div class="vault-stat">
+        <span id="statEras" class="vault-stat-val">—</span>
+        <span class="vault-stat-lbl">Franchise-Era Pools</span>
+      </div>
+      <div class="vault-stat">
+        <span id="statFranchises" class="vault-stat-val">—</span>
+        <span class="vault-stat-lbl">Franchises Represented</span>
+      </div>
+      <div class="vault-stat">
+        <span id="statDecades" class="vault-stat-val">—</span>
+        <span class="vault-stat-lbl">Decades Represented</span>
+      </div>
+      <div class="vault-stat">
+        <span id="statLargest" class="vault-stat-val" style="font-size:14px;">—</span>
+        <span class="vault-stat-lbl">Largest Pool</span>
+      </div>
+      <div class="vault-stat">
+        <span id="statSmallest" class="vault-stat-val" style="font-size:14px;">—</span>
+        <span class="vault-stat-lbl">Smallest Pool</span>
+      </div>
+      <div class="vault-stat">
+        <span id="statAvgPool" class="vault-stat-val">—</span>
+        <span class="vault-stat-lbl">Avg Pool Size</span>
+      </div>
+      <div class="vault-stat">
+        <span id="statSource" class="vault-stat-val" style="font-size:14px;">Loading...</span>
+        <span class="vault-stat-lbl">Database Source</span>
+      </div>
+      <div class="vault-stat">
+        <span id="statBestRecord" class="vault-stat-val">—</span>
+        <span class="vault-stat-lbl">Dynasty Best</span>
+      </div>
+      <div class="vault-stat">
+        <span id="statRuns" class="vault-stat-val">0</span>
+        <span class="vault-stat-lbl">Runs</span>
+      </div>
+    </div>
+
+    
+    <div id="decadeCoverageStrip" class="decade-strip" aria-label="1890s to 2020s Decade Coverage"></div>
+    <div id="missingCoverageLine" style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--mute); margin:-12px 0 20px;"></div>
+    <div id="seedFallbackBanner" class="seed-fallback-banner" style="display:none;">
+      <div>
+        <div style="font-weight:700; font-size:13.5px; color:#E8CA68;">Seed Historical Vault Active</div>
+        <div style="font-size:12.5px; color:var(--ink-2);">Import or compile Lahman database for full coverage (15,000+ real players across all 30 franchises).</div>
+      </div>
+    </div>
+
+    <div class="seed-bar">
+      <span style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--mute); text-transform:uppercase;">Run Seed</span>
+      <input id="seedInput" class="search-input" type="text" placeholder="Optional seed (e.g. 20261119)" style="max-width:210px;">
+      <button id="btnDailySeed" class="btn btn-primary">Daily Challenge</button>
+    </div>
+
+    <div id="modeGrid"  class="mode-grid"></div>
+
+    <div id="modeConfigBar" class="mode-config-bar">
+      <div>
+        <div id="modeConfigTitle" style="font-weight:700; font-size:14px; margin-bottom:6px;">Select Franchise</div>
+        <div id="modeConfigChips" class="chip-group"></div>
+      </div>
+      <button id="btnLaunchConfigured" class="btn btn-primary">Start Run</button>
+    </div>
+  </section>
+
+  <!-- VIEW 2: DRAFT ROOM -->
+  <section id="viewDraft" class="view">
+    <div class="draft-layout">
+
+      <!-- LEFT: REALISTIC TOP-DOWN BALLPARK + DUGOUT/BULLPEN -->
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Defensive Diamond &amp; Dugout</div>
+            <div id="rosterProgressSub" style="font-size:12px; color:var(--mute);">0 of 7 slots filled</div>
+          </div>
+          <div id="rotationToggleWrap" style="display:none; gap:4px;"></div>
+        </div>
+
+        <div class="ballpark-stage" id="ballparkStage">
+          <img class="ballpark-img" src="./assets/ballpark.jpg" alt="Top-down Major League baseball stadium">
+          <div class="ballpark-vignette"></div>
+          <div id="fieldSlotsLayer"></div>
+        </div>
+
+        <div class="dugout-panel">
+          <div class="dugout-section-label">
+            <span>Dugout &amp; Bullpen (Off-Field Roles)</span>
+            <span>DH &amp; Relief Pitching</span>
+          </div>
+          <div id="dugoutSlotsGrid" class="dugout-grid"></div>
+        </div>
+
+        <div class="chem-strip">
+          <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--mute); text-transform:uppercase;">Clubhouse Chemistry</span>
+          <div id="chemBadges" class="chem-badges">
+            <span class="chem-tag neutral">Draft players to build franchise &amp; era synergy</span>
+          </div>
+        </div>
+
+        <div class="retired-strip">
+          <div class="dugout-section-label" style="margin-bottom:6px;">
+            <span>Historical Opportunities · Retired Chapters</span>
+            <span id="retiredCountLbl">0 Sealed</span>
+          </div>
+          <div id="retiredChaptersList" class="retired-list">
+            <span style="font-size:12px; color:var(--mute);">Each pick permanently seals that Franchise + Era for this run.</span>
+          </div>
+        </div>
+
+        <div id="simReadyBar" class="sim-ready-bar" style="display:none;">
+          <div>
+            <div style="font-weight:700; font-size:15px;">Roster Complete — Ready for Opening Day</div>
+            <div style="font-size:12.5px; color:var(--mute);">All defensive, dugout, and bullpen slots are locked.</div>
+          </div>
+          <button id="btnStartSim" class="btn btn-primary">Simulate 162-Game Season</button>
+        </div>
+      </div>
+
+      <!-- RIGHT: FRANCHISE + ERA ROLL & SCOUTING DOSSIERS -->
+      <div class="panel">
+        <div class="roll-banner" id="rollBanner">
+          <div style="flex:1; min-width:240px;">
+            <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--mute); text-transform:uppercase; letter-spacing:0.08em;">Active Franchise + Era Roll</div>
+            <div id="rollFranchiseName" class="roll-franchise">Boston Red Sox</div>
+            <div id="rollDecadeLabel" class="roll-decade">2000s · 33 Real Historical Players</div>
+            <p id="rollEraNarrative" class="era-narrative"></p>
+          </div>
+          <div class="roll-controls">
+            <button id="btnReroll" class="btn">Reroll (2 left)</button>
+          </div>
+        </div>
+
+        <div class="scouting-toolbar">
+          <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab active" data-filter="ALL">All</button>
+            <button class="filter-tab" data-filter="POS">Position</button>
+            <button class="filter-tab" data-filter="OF">OF</button>
+            <button class="filter-tab" data-filter="IF">IF</button>
+            <button class="filter-tab" data-filter="SP">SP</button>
+            <button class="filter-tab" data-filter="RP">RP</button>
+            <button class="filter-tab" data-filter="ELIGIBLE">Open Slots</button>
+          </div>
+          <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap;">
+            <button id="btnToggleHof" class="filter-tab toggle-pill">HOF Only</button>
+            <button id="btnToggleAwards" class="filter-tab toggle-pill">Award Winners</button>
+            <select id="sortSelect" class="sort-select" aria-label="Sort scouting pool">
+              <option value="ALPHA_ASC">Sort: Alphabetical (A–Z)</option>
+              <option value="ALPHA_DESC">Sort: Alphabetical (Z–A)</option>
+              <option value="SEASONS">Sort: Franchise Tenure</option>
+              <option value="CHRONO">Sort: Years Active</option>
+            </select>
+            <input id="playerSearch" class="search-input" type="text" placeholder="Search name, pos, award, gem...">
+          </div>
+          <div id="scoutingCountPill" class="pool-count-pill">Showing all qualifying players</div>
+        </div>
+
+        <div id="dossierList" class="dossier-list"></div>
+
+        <div id="dossierInspector" class="dossier-inspector">
+          <div style="color:var(--mute); font-size:13px;">Select a player's scouting dossier above to inspect their era impact, clubhouse chemistry links, and assign them to an open roster slot.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- VIEW 3: SEASON SIMULATION & END-OF-SEASON RECAP -->
+  <section id="viewSim" class="view">
+    <div class="sim-header">
+      <div>
+        <div id="simTierLabel" class="record-tier">Simulating 162-Game Season...</div>
+        <div id="simRecordDisplay" class="record-display">0–0</div>
+        <div id="simSubLine" style="font-size:14px; color:var(--ink-2); margin-top:6px;">Opening Day at the Black Diamond Vault</div>
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button id="btnSkipSim" class="btn">Skip to Final Results</button>
+        <button id="btnCopySeed" class="btn">Copy Seed</button>
+        <button id="btnPlayAgain" class="btn btn-primary" style="display:none;">Start Another Run</button>
+      </div>
+    </div>
+
+    <div id="monthGrid" class="month-grid"></div>
+
+    <div id="endOfSeasonWrap" style="display:none;">
+      <div class="team-photo-frame">
+        <div class="team-photo-top">
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--mute); letter-spacing:0.1em; text-transform:uppercase;">Official Commemorative Team Portrait</div>
+            <div id="photoHeadline" class="team-photo-title">Diamond Draft Club · 117–45</div>
+          </div>
+          <div id="photoBadge" class="pill-status">World Series Champions</div>
+        </div>
+        <div id="teamPhotoRoster" class="team-photo-roster"></div>
+      </div>
+
+      <div class="recap-grid">
+        <div class="recap-card">
+          <div class="recap-label">October Postseason</div>
+          <div id="recapOctoberTitle" class="recap-big">—</div>
+          <ul id="recapSeriesList" class="series-list"></ul>
+        </div>
+
+        <div class="recap-card">
+          <div class="recap-label">Club Hardware &amp; Leaders</div>
+          <div style="margin-bottom:14px;">
+            <div style="font-size:11.5px; color:var(--mute); text-transform:uppercase;">Team MVP</div>
+            <div id="recapMvp" style="font-size:18px; font-weight:700; margin-top:2px;">—</div>
+            <div id="recapMvpLine" style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--silver); margin-top:2px;">—</div>
+          </div>
+          <div>
+            <div style="font-size:11.5px; color:var(--mute); text-transform:uppercase;">Team Cy Young</div>
+            <div id="recapCy" style="font-size:18px; font-weight:700; margin-top:2px;">—</div>
+            <div id="recapCyLine" style="font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--silver); margin-top:2px;">—</div>
+          </div>
+        </div>
+
+        <div class="recap-card">
+          <div class="recap-label">Run Autopsy &amp; Chemistry</div>
+          <div id="recapAutopsyHeadline" class="recap-big">—</div>
+          <p id="recapAutopsyText" style="font-size:13.5px; color:var(--ink-2); margin:8px 0 0;"></p>
+          <div id="recapAwardsRow" class="dossier-awards" style="margin-top:12px;"></div>
+        </div>
+      </div>
+
+      <div class="recap-card" style="margin-bottom:24px;">
+        <div class="recap-label">Roads Not Taken — Legends Left Behind</div>
+        <div id="roadsNotTakenGrid" class="roads-grid"></div>
+      </div>
+
+      <div class="recap-card" style="margin-bottom:24px;">
+        <div class="recap-label">Historical Ranking &amp; All-Time MLB Record Comparison</div>
+        <div style="overflow-x:auto;">
+          <table class="hist-table">
+            <thead>
+              <tr>
+                <th>Club</th>
+                <th>Record</th>
+                <th>Win %</th>
+                <th>Historical Benchmark</th>
+              </tr>
+            </thead>
+            <tbody id="histComparisonBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- DYNASTY VAULT MODAL -->
+<div id="modalDynasty" class="modal-backdrop">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="panel-title">Dynasty Records &amp; Trophies</div>
+      <button id="closeDynasty" class="btn">Close</button>
+    </div>
+    <div id="dynastySummary" class="vault-stats-bar" style="margin:0 0 18px;"></div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--mute); text-transform:uppercase; letter-spacing:0.08em;">Trophy Case</div>
+    <div id="trophyGrid" class="trophy-grid"></div>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--mute); text-transform:uppercase; letter-spacing:0.08em; margin-top:20px;">Recent Runs</div>
+    <div id="recentRunsList" style="margin-top:8px;"></div>
+  </div>
+</div>
+
+<!-- VAULT IMPORTER MODAL -->
+<div id="modalImport" class="modal-backdrop">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="panel-title">Historical Database Loader (SABR Lahman CSV / Compiled JSON)</div>
+      <button id="closeImport" class="btn">Close</button>
+    </div>
+    <p style="font-size:13.5px; color:var(--ink-2); margin-top:0;">Expand Diamond Draft to thousands of real MLB players across all 30 franchises and decades. Upload official SABR Lahman CSV files (<code>People.csv</code>, <code>Batting.csv</code>, <code>Pitching.csv</code>, <code>Fielding.csv</code>, <code>AwardsPlayers.csv</code>, <code>HallOfFame.csv</code>) or a compiled <code>historical-players.json</code> file.</p>
+    <div class="import-dropzone">
+      <label style="display:block; font-size:12.5px; font-weight:600; margin-bottom:8px;">Upload SABR Lahman CSVs or Compiled JSON</label>
+      <input id="lahmanFileInput" type="file" multiple accept=".csv,.json" style="font-size:12.5px; color:var(--ink-2); width:100%;">
+      <label style="display:inline-flex; align-items:center; gap:6px; margin-top:10px; font-size:12px; color:var(--mute);">
+        <input id="chkReplaceVault" type="checkbox" checked>
+        Replace built-in seed archive on import (uncheck to merge)
+      </label>
+    </div>
+    <label style="display:block; font-size:12px; color:var(--mute); margin-bottom:6px;">Or paste compiled <code>historical-players.json</code> array:</label>
+    <textarea id="importJsonArea" rows="6" style="width:100%; background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:10px; color:var(--ink); font-family:'JetBrains Mono',monospace; font-size:12px;" placeholder='[{"playerId":"bryankr01-CHC-2010s-H","name":"Kris Bryant","franchiseId":"CHC","decade":"2010s","type":"H","primaryPos":"3B","startYear":2015,"endYear":2019,"seasonsWithFranchise":5,"hof":false,"awards":["MVP","3x All-Star","World Series"],"stats":{"avg":0.284,"obp":0.385,"ops":0.901,"hr":28,"rbi":81}}]'></textarea>
+    <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:12px;">
+      <button id="btnConfirmImport" class="btn btn-primary">Load Into Vault</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="./data/franchises.js"></script>
+<script src="./data/historical-db.js"></script>
+<script src="./data/seed-historical-players.js"></script>
+<script src="./engine/game-engine.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
